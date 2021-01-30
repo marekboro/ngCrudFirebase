@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angulartesting-e5fd1": {
+      "hosting": {
+        "angularCrudTest": [
+          "angulartesting-e5fd1"
+        ]
+      }
+    }
+  }
+}
