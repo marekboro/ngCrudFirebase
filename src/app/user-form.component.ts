@@ -11,6 +11,7 @@ import {CommonModule} from '@angular/common'
 })
 
 export class UserFormComponent {
+    submitionAttempt=false;
     form: FormGroup;
     title: string;
     user = new User();
@@ -30,6 +31,8 @@ export class UserFormComponent {
     }
 
     submit(){
+        this.submitionAttempt = true;
+        console.log("submition : " , this.submitionAttempt)
         this.afs.collection('users').add({
             name: this.user.name,
             email: this.user.email,
@@ -37,6 +40,12 @@ export class UserFormComponent {
             numbers: this.user.numbers,
             logic: this.user.logic
         })
+        // this.goHome();
+        this._router.navigate([''])
+        
+    }
+    goHome(){
+        console.log("goHome: dirty:", this.form.dirty)
         this._router.navigate([''])
     }
 

@@ -13,6 +13,7 @@ import { routing } from './app.routing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserFormComponent } from './user-form.component';
+import { PreventUnsubmittedFormGuard } from './prevent-unsubmitted-form-guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { UserFormComponent } from './user-form.component';
     CommonModule,
     routing
   ],
-  providers: [],
+  providers: [PreventUnsubmittedFormGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
