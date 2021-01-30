@@ -1,0 +1,31 @@
+<h1>USERS: </h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>User Name:</th>
+            <th>Email:</th>
+            <th>Password:</th>
+            <th>Numbers:</th>
+            <th>Logic:</th>
+            <th>Edit:</th>
+            <th>Delete:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users | async">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.numbers}}</td>
+            <td>{{user.logic}}</td>
+            <!-- <td *ngIf="user.password">{{user.passowrd}}</td> -->
+            <!-- <td *ngIf="user.numbers">{{user.numbers}}</td> -->
+            <td> 
+                <a> E </a>
+            </td>
+            <td> 
+                <a> D </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
