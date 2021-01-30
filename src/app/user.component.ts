@@ -1,6 +1,7 @@
-import {Component} from '@angular/core'
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore'
-import {Router} from '@angular/router'
+import { Component } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 interface User {
     name: string,
@@ -19,16 +20,32 @@ export class UserComponent {                            // pass in the propertie
     usersCol: AngularFirestoreCollection<User>;         // 1st: collection of type User
     users: any;                                         // pass in the name of our collection.
 
-    constructor(private afs: AngularFirestore, private _router:Router) {}       // create an instance of AngularFirestore via dependancy injection
-    
-    ngOnInit(){                                         // ON initialising this component we: 
+    constructor(private afs: AngularFirestore, private _router: Router) { }       // create an instance of AngularFirestore via dependancy injection
+
+    ngOnInit() {                                         // ON initialising this component we: 
         this.usersCol = this.afs.collection('users');   // bind our AngularFirestoreCollection<User> aka usersCol TO our AngularFirestore instance : afs, VIA the .collection METHOD.  
-        this.users = this.usersCol.valueChanges();      // bind 'users' to cusersCol (above) with the method .valueChanges() making 'users' and Observable. 
-        }
-    addUser(){
+        // this.users = this.usersCol.valueChanges();      // bind 'users' to cusersCol (above) with the method .valueChanges() making 'users' and Observable. 
+        this.users = this.usersCol.snapshotChanges()
+            .pipe(
+                map(actions => {
+                    return actions.map(a => {
+                        const data = a.payload.doc.data() as User;
+                        const id = a.payload.doc.id;
+                        return { id, data }
+                    });
+                })
+            );
+    }
+    addUser() {
         this._router.navigate(['add'])
 
     }
-    
+
+    delete(userId,name){
+        if(confirm("Are you sure you want to delete " + name + " ?")){
+            this.afs.doc('users/' + userId).delete();
+        }
+    }
+
 }
 
