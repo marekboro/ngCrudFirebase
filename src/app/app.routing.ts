@@ -5,7 +5,9 @@ import {UserComponent} from './user.component'
 
 export const routing = RouterModule.forRoot([
     {path: '', component: UserComponent},
-    {path: 'add', component: UserFormComponent, canDeactivate:[PreventUnsubmittedFormGuard]}
+    {path: 'add', component: UserFormComponent, canDeactivate:[PreventUnsubmittedFormGuard]},
+    {path: 'add/:id', component: UserFormComponent},
+    {path: 'delete/:id', component: UserComponent}
 ]
     
 )
