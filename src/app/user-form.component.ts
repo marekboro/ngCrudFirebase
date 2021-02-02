@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { User } from './user'
 import {CommonModule} from '@angular/common'
 import {Observable} from 'rxjs'
+import {LogicCheck} from './user-form.logic.checker'
 
 @Component({
     selector: 'user-form',
@@ -28,7 +29,7 @@ export class UserFormComponent {
             email: ['', Validators.required],
             password: ['', !Validators.required],
             numbers: ['', !Validators.required],
-            logic: ['', !Validators.required],
+            logic: ['',  Validators.compose([ Validators.required, LogicCheck.verifyLogic])]
         })
     }
 

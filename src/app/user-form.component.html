@@ -30,6 +30,9 @@
     <div class="form-group">
         <label for="logic"> Logic:</label>
         <input [(ngModel)]="user.logic" type="text" class="form-control" formControlName="logic">
+        <div *ngIf="form.controls.logic.touched && !form.controls.logic.errors.verifyLogic" class="alert alert-danger">
+            logic is flawed
+        </div>
     </div>
 
     <button [disabled]="!form.valid" class="btn btn-primary" type="submit"> {{buttonStatement}} </button>
