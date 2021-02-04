@@ -15,11 +15,18 @@ import { CommonModule } from '@angular/common';
 import { UserFormComponent } from './user-form.component';
 import { PreventUnsubmittedFormGuard } from './prevent-unsubmitted-form-guard';
 
+import {LoginComponent} from './login.component'
+import {LoginService} from './login.service'
+
+import {AngularFireAuth} from '@angular/fire/auth'
+
+
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    UserFormComponent
+    UserFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,7 @@ import { PreventUnsubmittedFormGuard } from './prevent-unsubmitted-form-guard';
     CommonModule,
     routing
   ],
-  providers: [PreventUnsubmittedFormGuard],
+  providers: [PreventUnsubmittedFormGuard,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
