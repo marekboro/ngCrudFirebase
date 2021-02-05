@@ -15,6 +15,17 @@ get isLoggedIn(){
     return this.loggedIn.asObservable();
 }
 
+getCurrentUser(){
+    return this.afAuth.authState.subscribe(authState => {
+        if(authState){
+            this.loggedIn.next(true);
+            this.router.navigate(['/']);
+        }
+        else {
+            this.router.navigate(['login']);
+        }
+    })
+}
 get iAmLoggedIn(){
     return this.loggedIn;
 }

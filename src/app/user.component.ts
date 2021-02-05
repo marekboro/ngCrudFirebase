@@ -27,7 +27,7 @@ export class UserComponent {                            // pass in the propertie
         var iAmLoggiedInHere = this._loginservice.iAmLoggedIn.value;
         console.log(iAmLoggiedInHere)
     
-        if(iAmLoggiedInHere){
+        // if(iAmLoggiedInHere){
             
         this.usersCol = this.afs.collection('users');   // bind our AngularFirestoreCollection<User> aka usersCol TO our AngularFirestore instance : afs, VIA the .collection METHOD.  
         // this.users = this.usersCol.valueChanges();      // bind 'users' to cusersCol (above) with the method .valueChanges() making 'users' and Observable. 
@@ -41,10 +41,10 @@ export class UserComponent {                            // pass in the propertie
                     });
                 })
             );
-        }
-        else {
-            this._router.navigate(['login'])
-        }
+        // }
+        // else {
+        //     this._router.navigate(['login'])
+        // }
     }
     addUser() {
         this._router.navigate(['add'])

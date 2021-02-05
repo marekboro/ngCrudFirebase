@@ -5,6 +5,7 @@ import { UserComponent } from './user.component'
 import { LoginComponent } from './login.component'
 import { SignupComponent } from './signup.component'
 import { LoginService } from './login.service'
+import {AuthGuard} from './auth.guard'
 
 var loginService: LoginService;
 // let x = loginService.iAmLoggedIn;
@@ -16,9 +17,9 @@ console.log("hello")
 var routes: Object[];
 var routesOne: Object[] = [{ path: '', component: UserComponent }, { path: 'login', component: LoginComponent }];
 var routesAll: Object[] = [
-    { path: '', component: UserComponent },
-    { path: 'add', component: UserFormComponent, canDeactivate: [PreventUnsubmittedFormGuard] },
-    { path: 'add/:id', component: UserFormComponent },
+    { path: '', component: UserComponent , canActivate: [AuthGuard] },
+    { path: 'add', component: UserFormComponent, canDeactivate: [PreventUnsubmittedFormGuard], canActivate: [AuthGuard] },
+    { path: 'add/:id', component: UserFormComponent , canActivate: [AuthGuard] },
     { path: 'delete/:id', component: UserComponent },
     { path: 'login', component: LoginComponent },
     { path: 'login/:invalidLoginMessage', component: LoginComponent },

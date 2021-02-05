@@ -20,6 +20,7 @@ import {LoginService} from './login.service'
 
 import {AngularFireAuth} from '@angular/fire/auth'
 import { SignupComponent } from './signup.component';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { SignupComponent } from './signup.component';
     CommonModule,
     routing
   ],
-  providers: [PreventUnsubmittedFormGuard,LoginService],
+  providers: [PreventUnsubmittedFormGuard,LoginService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
