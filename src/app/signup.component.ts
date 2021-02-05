@@ -8,11 +8,11 @@ import {ActivatedRoute} from '@angular/router'
 
 
 @Component({
-    selector: 'login',
-    templateUrl: './login.component.html'
+    selector: 'signup',
+    templateUrl: './signup.component.html'
 })
 
-export class LoginComponent {
+export class SignupComponent {
     form: FormGroup;
     invalidLoginMessage;
     constructor(fb: FormBuilder, private _loginService: LoginService, private _router:Router, private _route: ActivatedRoute) {
@@ -31,24 +31,7 @@ export class LoginComponent {
     }
 
 
-    login(){
-        var result = this._loginService.login(this.form.controls['username'].value, this.form.controls['password'].value)
+    onSignup(){
+        var result = this._loginService.signup(this.form.controls['username'].value, this.form.controls['password'].value)
     }
-
-
-    // login() {
-
-    //     var result = this._loginService.login(this.form.controls['username'].value, this.form.controls['password'].value)
-    //     if(result){
-    //         this.form.controls['password'].setErrors({invalidLogin: false}) //  magic!! how? ? 
-    //         this._router.navigate(['GitHub'])
-    //         // this.form.controls['password'].setErrors({invalidLogin: true}) //  magic!! how? ? 
-    //     }
-    //     // else {
-    //     //     this.form.controls['password'].setErrors({invalidLogin: null})
-    //     // }
-        
-        
-    //     console.log(this.form.value)
-    // }
 }

@@ -15,6 +15,10 @@ get isLoggedIn(){
     return this.loggedIn.asObservable();
 }
 
+get iAmLoggedIn(){
+    return this.loggedIn;
+}
+
 login(username:string,password:string) {
     if(username !=='' && password !== ''){
         return this.afAuth.signInWithEmailAndPassword(username,password)
@@ -24,7 +28,8 @@ login(username:string,password:string) {
             this.router.navigate(['/'])
         })
         .catch(error => {
-            this.router.navigate(['login/' + error.message]);
+            var errorMessage = error.message;
+            this.router.navigate(['login/' + errorMessage]);
             console.log(error);
         })
     }
@@ -34,6 +39,20 @@ logout(){
     this.loggedIn.next(false);
     this.afAuth.signOut();
     this.router.navigate(['/login']);
+}
+
+signup(username:string,password:string){
+    return this.afAuth.createUserWithEmailAndPassword(username,password)
+    .then(authState => {
+        console.log("signup-then", authState);
+        this.loggedIn.next(true);
+        this.router.navigate(['/']);
+    })
+    .catch(error => {
+        var errorMessage = error.message;
+        this.router.navigate(['signup/' + errorMessage]);
+        console.log(error);
+    })
 }
 
     // isLoggedIn = false;

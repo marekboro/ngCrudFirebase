@@ -4,12 +4,16 @@ import { FormControl } from '@angular/forms'
 import { FormBuilder } from '@angular/forms'
 
 describe('', () => {
+let formControl : FormControl;
+let logic; 
+
     beforeEach(async () => {
-        // await TestBed.configureTestingModule({
-        //     declarations: [
-        //     ],
-        //     imports: [LogicCheck]
-        // }).compileComponents();
+
+        await TestBed.configureTestingModule({
+            declarations: [
+            ],
+            imports: [LogicCheck]
+        }).compileComponents();
 
 
         let fb: FormBuilder;
@@ -27,4 +31,4 @@ describe('', () => {
         expect(logic("")).toBeTruthy()
 
     })
-}
+})
