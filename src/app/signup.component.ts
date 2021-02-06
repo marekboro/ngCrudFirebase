@@ -32,6 +32,7 @@ export class SignupComponent {
 
 
     onSignup(){
-        var result = this._loginService.signup(this.form.controls['username'].value, this.form.controls['password'].value)
+        var result = this._loginService.signup(this.form.controls['username'].value, this.form.controls['password'].value);
+        
     }
 }

@@ -29,7 +29,8 @@ export class UserComponent {                            // pass in the propertie
     
         // if(iAmLoggiedInHere){
             
-        this.usersCol = this.afs.collection('users');   // bind our AngularFirestoreCollection<User> aka usersCol TO our AngularFirestore instance : afs, VIA the .collection METHOD.  
+        // this.usersCol = this.afs.collection('users');   // bind our AngularFirestoreCollection<User> aka usersCol TO our AngularFirestore instance : afs, VIA the .collection METHOD.  
+        this.usersCol = this.afs.collection('users/'+ this._loginservice.loggedInUser + "/clients/"); 
         // this.users = this.usersCol.valueChanges();      // bind 'users' to cusersCol (above) with the method .valueChanges() making 'users' and Observable. 
         this.users = this.usersCol.snapshotChanges()
             .pipe(
@@ -53,7 +54,7 @@ export class UserComponent {                            // pass in the propertie
 
     delete(userId,name){
         if(confirm("Are you sure you want to delete " + name + " ?")){
-            this.afs.doc('users/' + userId).delete();
+            this.afs.doc('users/'+this._loginservice.loggedInUser+"/clients/" + userId).delete();
         }
     }
     logOut(){

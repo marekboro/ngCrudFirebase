@@ -6,6 +6,7 @@ import { User } from './user'
 import {CommonModule} from '@angular/common'
 import {Observable} from 'rxjs'
 import {LogicCheck} from './user-form.logic.checker'
+import {LoginService} from './login.service'
 
 @Component({
     selector: 'user-form',
@@ -23,7 +24,7 @@ export class UserFormComponent {
     userDoc:AngularFirestoreDocument<User>;
     singleUser: Observable<User>;
 
-    constructor(fb: FormBuilder, private _router: Router, private afs: AngularFirestore, private _route: ActivatedRoute) {
+    constructor(fb: FormBuilder, private _router: Router, private afs: AngularFirestore, private _route: ActivatedRoute, private _loginService: LoginService) {
         this.form = fb.group({
             username: ['', Validators.required],
             email: ['', Validators.required],
@@ -46,7 +47,8 @@ export class UserFormComponent {
         else {
             this.title = "Edit User Form";
             this.buttonStatement="Save user"
-            this.userDoc = this.afs.doc('users/'+this.id);
+            // this.userDoc = this.afs.doc('users/'+this.id);
+            this.userDoc = this.afs.doc('users/'+this._loginService.loggedInUser+"/clients/"+this.id);
             this.singleUser = this.userDoc.valueChanges();  // sigleUser is now an observable. 
             this.singleUser.subscribe(user => {             // we subscribe to it, which returns our user in a callback. 
                 this.form.get('username').setValue(user.name);
@@ -64,7 +66,7 @@ export class UserFormComponent {
         this.submitionAttempt = true;
         console.log("submition : " , this.submitionAttempt)
         if (this.id) {
-            this.afs.doc('users/'+this.id).update({
+            this.afs.doc('users/'+this._loginService.loggedInUser+"/clients/"+this.id).update({
                 name: this.user.name,
                 email: this.user.email,
                 password: this.user.password,
@@ -73,7 +75,10 @@ export class UserFormComponent {
             })
         }
         else {
-            this.afs.collection('users').add({
+            this.afs.collection('users')
+            .doc(this._loginService.loggedInUser)
+            .collection("clients")
+            .add({
                 name: this.user.name,
                 email: this.user.email,
                 password: this.user.password,

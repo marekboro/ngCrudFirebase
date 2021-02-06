@@ -4,10 +4,12 @@ import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
+
 @Injectable()
 export class LoginService {
 
 private loggedIn = new BehaviorSubject<boolean>(false);
+loggedInUser;
 
 constructor(private router:Router, private afAuth: AngularFireAuth){}
 
@@ -19,6 +21,7 @@ getCurrentUser(){
     return this.afAuth.authState.subscribe(authState => {
         if(authState){
             this.loggedIn.next(true);
+            this.loggedInUser= authState.uid; 
             this.router.navigate(['/']);
         }
         else {
@@ -36,6 +39,7 @@ login(username:string,password:string) {
         .then(authState => {
             console.log("Login-then", authState);
             this.loggedIn.next(true);
+            this.loggedInUser= authState.user.uid;
             this.router.navigate(['/'])
         })
         .catch(error => {
@@ -49,6 +53,7 @@ login(username:string,password:string) {
 logout(){
     this.loggedIn.next(false);
     this.afAuth.signOut();
+    this.loggedInUser = null;
     this.router.navigate(['/login']);
 }
 
@@ -57,6 +62,7 @@ signup(username:string,password:string){
     .then(authState => {
         console.log("signup-then", authState);
         this.loggedIn.next(true);
+        this.loggedInUser= authState.user.uid; 
         this.router.navigate(['/']);
     })
     .catch(error => {
